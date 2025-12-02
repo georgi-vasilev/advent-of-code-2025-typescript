@@ -1,8 +1,8 @@
-const text = await Deno.readTextFile("input_day_2");
-const separated = text.split(",");
+const text: string = await Deno.readTextFile("input_day_2");
+const separated: string[] = text.split(",");
 
 
-const result = separated.reduce((acc, curr) => {
+const result: number = separated.reduce((acc: number, curr: string) => {
   const [first, second] = curr.split("-");
 
   acc += getInvalidIdsInRange(Number(first), Number(second));
@@ -12,17 +12,18 @@ const result = separated.reduce((acc, curr) => {
 }, 0);
 
 function getInvalidIdsInRange(start: number, end: number): number {
-  let result: number = 0;
+  let sum: number = 0;
   for (let i = start; i <= end; i++) {
-    if (repeatingMiddle(i)) {
-      result += i;
+    if (repeatingCharacters(i)) {
+      sum += i;
+      console.log(`invalid character ${i}`)
     }
   }
 
-  return result;
+  return sum;
 }
 
-function repeatingMiddle(number: number) {
+function repeatingMiddle(number: number): boolean {
   const s = String(number);
   if (s.length % 2 !== 0) {
     return false;
@@ -30,6 +31,21 @@ function repeatingMiddle(number: number) {
 
   const mid = s.length / 2;
   return s.slice(0, mid) === s.slice(mid);
+}
+
+function repeatingCharacters(number: number): boolean {
+  const s = String(number);
+
+  for (let i = 1; i < s.length; i++) {
+    const substr = s.substring(0, i);
+    const repeater = s.length / substr.length;
+
+    if (substr.repeat(repeater) === s) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 console.log(result);
