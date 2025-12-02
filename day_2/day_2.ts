@@ -16,7 +16,6 @@ function getInvalidIdsInRange(start: number, end: number): number {
   for (let i = start; i <= end; i++) {
     if (repeatingCharacters(i)) {
       sum += i;
-      console.log(`invalid character ${i}`)
     }
   }
 
