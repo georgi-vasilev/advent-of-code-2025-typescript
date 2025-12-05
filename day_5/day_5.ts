@@ -5,17 +5,17 @@ const ranges: Array<Array<number>> = rangeBlock.split("\n").map((line: string) =
 const numbers: Array<number> = numberBlock.split("\n").map(Number);
 
 
-const result: Map<number, number> = new Map<number, number>();
+const result: Set<number> = new Set<number>();
 
 // could be optimized by merging the ranges where possible but eh
 for (const [start, end] of ranges) {
   for (const num of numbers) {
     if (start <= num && num <= end) {
       if (!result.has(num)) {
-        result.set(num, num);
+        result.add(num);
       }
     }
   }
 }
 
-console.log([...result.values()].length);
+console.log(result.size);
