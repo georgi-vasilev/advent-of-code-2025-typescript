@@ -7,6 +7,7 @@ const numbers: Array<number> = numberBlock.split("\n").map(Number);
 
 const result: Map<number, number> = new Map<number, number>();
 
+// could be optimized by merging the ranges where possible but eh
 for (const [start, end] of ranges) {
   for (const num of numbers) {
     if (start <= num && num <= end) {
